@@ -28,7 +28,7 @@ db.connect((err) => {
 
 const licenseRoutes = require('./routes/license/licenseHandling.js');
 
-app.use('/api', licenseRoutes(db));
+app.use('/license', licenseRoutes(db));
 
 const userRoutes = require('./routes/user/userHandling.js');
 

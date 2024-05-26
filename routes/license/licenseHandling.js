@@ -73,7 +73,7 @@ module.exports = (db) => {
     });
 
     // License endpoint that requires IP check
-    router.post('/license/:uuid', ipCheckMiddleware, (req, res) => {
+    router.post('/:uuid', ipCheckMiddleware, (req, res) => {
         // Perform the license check action for the product
         res.send({ success: true, message: 'License check performed successfully.' });
     });
