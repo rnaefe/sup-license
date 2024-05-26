@@ -5,5 +5,23 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.9.7",
     "uuid": "^9.0.1"
-  }
+  },
+  "name": "sup-license",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dexter841/sup-license.git"
+  },
+  "author": "dexter841",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dexter841/sup-license/issues"
+  },
+  "homepage": "https://github.com/dexter841/sup-license#readme",
+  "description": ""
 }

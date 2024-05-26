@@ -6,7 +6,6 @@ const { v4: uuidv4 } = require('uuid');
 
 
 module.exports = (db) => {
-    // Middleware to check allowed IPs for /license endpoint
     // Middleware to check allowed apikeys for /license endpoint
     const apiKeyCheckMiddleware = require('../../middlewares/apiKeyCheckMiddleware');
 
