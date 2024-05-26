@@ -8,13 +8,13 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = (db) => {
     // Middleware to check allowed IPs for /license endpoint
     // Middleware to check allowed apikeys for /license endpoint
-    const apiKeyCheckMiddleware = require('../../middlewares/apiKeyCheckMiddleware')(db);
+    const apiKeyCheckMiddleware = require('../../middlewares/apiKeyCheckMiddleware');
 
     // Middleware to check allowed IPs for /license endpoint
     const ipCheckMiddleware = require('../../middlewares/ipCheckMiddleware')(db);
 
     // Create a new product
-    router.post('/create', (req, res) => {
+    router.post('/create', apiKeyCheckMiddleware(db, false), (req, res) => {
         const { name, allowed_ips, blacklisted_ips } = req.body;
         const apiKey = req.headers['api-key'];
         const uuid = uuidv4();
@@ -37,7 +37,7 @@ module.exports = (db) => {
     });
 
     // Get product details
-    router.get('/info/:uuid', apiKeyCheckMiddleware, (req, res) => {
+    router.get('/info/:uuid', apiKeyCheckMiddleware(db, true), (req, res) => {
         const { uuid } = req.params;
 
         db.query('SELECT * FROM products WHERE uuid = ?', [uuid], (err, results) => {
@@ -57,7 +57,7 @@ module.exports = (db) => {
     });
 
     // Delete a product
-    router.delete('/delete/:uuid', apiKeyCheckMiddleware, (req, res) => {
+    router.delete('/delete/:uuid', apiKeyCheckMiddleware(db, true), (req, res) => {
         const { uuid } = req.params;
 
         db.query('DELETE FROM products WHERE uuid = ?', [uuid], (err, results) => {

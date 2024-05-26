@@ -26,9 +26,14 @@ db.connect((err) => {
 });
 
 
-const licenseRoutes = require('./routes/license/apiv1.js');
+const licenseRoutes = require('./routes/license/licenseHandling.js');
 
 app.use('/api', licenseRoutes(db));
+
+const userRoutes = require('./routes/user/userHandling.js');
+
+app.use('/user', userRoutes(db));
+
 
 
 
