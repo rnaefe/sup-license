@@ -25,13 +25,15 @@ db.connect((err) => {
   console.log('Successfully connected to the database.');
 });
 
-const apiKeyCheckMiddleware = require('./middlewares/apiKeyCheckMiddleware'); // Middleware to check allowed apikeys for /license endpoint
-const ipCheckMiddleware = require('./middlewares/ipCheckMiddleware'); // Middleware to check allowed IPs for /license endpoint
+// Middleware to check allowed apikeys for /license endpoint
+const apiKeyCheckMiddleware = require('./middlewares/apiKeyCheckMiddleware')(db);
 
+// Middleware to check allowed IPs for /license endpoint
+const ipCheckMiddleware = require('./middlewares/ipCheckMiddleware')(db);
 
 // Create a new product
 app.post('/products', (req, res) => {
-  const { name, allowed_ips } = req.body;
+  const { name, allowed_ips, blacklisted_ips } = req.body;
   const apiKey = req.headers['api-key'];
   const uuid = uuidv4();
 
@@ -40,9 +42,10 @@ app.post('/products', (req, res) => {
   }
 
   const allowedIpsString = JSON.stringify(allowed_ips);
+  const blacklistedIpsString = JSON.stringify(blacklisted_ips);
 
-  db.query('INSERT INTO products (uuid, name, allowed_ips, api_key) VALUES (?, ?, ?, ?)', 
-  [uuid, name, allowedIpsString, apiKey], (err, results) => {
+  db.query('INSERT INTO products (uuid, name, allowed_ips, blacklisted_ips, api_key) VALUES (?, ?, ?, ?, ?)', 
+  [uuid, name, allowedIpsString, blacklistedIpsString, apiKey], (err, results) => {
     if (err) {
       return res.status(500).send('Database error.');
     }
@@ -52,7 +55,7 @@ app.post('/products', (req, res) => {
 });
 
 // Get product details
-app.get('/products/:uuid', apiKeyCheckMiddleware(db), (req, res) => {
+app.get('/products/:uuid', apiKeyCheckMiddleware, (req, res) => {
   const { uuid } = req.params;
 
   db.query('SELECT * FROM products WHERE uuid = ?', [uuid], (err, results) => {
@@ -66,12 +69,13 @@ app.get('/products/:uuid', apiKeyCheckMiddleware(db), (req, res) => {
 
     const product = results[0];
     product.allowed_ips = JSON.parse(product.allowed_ips);
+    product.blacklisted_ips = JSON.parse(product.blacklisted_ips);
     res.send(product);
   });
 });
 
 // Delete a product
-app.delete('/products/:uuid', apiKeyCheckMiddleware(db), (req, res) => {
+app.delete('/products/:uuid', apiKeyCheckMiddleware, (req, res) => {
   const { uuid } = req.params;
 
   db.query('DELETE FROM products WHERE uuid = ?', [uuid], (err, results) => {
@@ -88,7 +92,7 @@ app.delete('/products/:uuid', apiKeyCheckMiddleware(db), (req, res) => {
 });
 
 // License endpoint that requires IP check
-app.post('/license/:uuid', ipCheckMiddleware(db), (req, res) => {
+app.post('/license/:uuid', ipCheckMiddleware, (req, res) => {
   // Perform the license check action for the product
   res.send({ success: true, message: 'License check performed successfully.' });
 });
