@@ -20,7 +20,7 @@ module.exports = (db) => {
         const uuid = uuidv4();
 
         if (!name || !allowed_ips || !Array.isArray(allowed_ips)) {
-            return res.status(400).send('Product name and allowed IPs are required.');
+            return res.status(400).send('Software name and allowed IPs are required.');
         }
 
         const allowedIpsString = JSON.stringify(allowed_ips);
@@ -46,7 +46,7 @@ module.exports = (db) => {
             }
 
             if (results.length === 0) {
-            return res.status(404).send('Product not found.');
+            return res.status(404).send('Software not found.');
             }
 
             const product = results[0];
@@ -66,7 +66,7 @@ module.exports = (db) => {
             }
 
             if (results.affectedRows === 0) {
-            return res.status(404).send('Product not found.');
+            return res.status(404).send('Software not found.');
             }
 
             res.send({ message: 'Product deleted successfully.' });
