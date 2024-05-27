@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = (db) => {
     const generateActivationCode = require("../util/utils").generateActivationCode;
     const apiKeyCheckMiddleware = require('../middlewares/apiKeyCheckMiddleware');
-    const ipMiddleware = require("../middlewares/ipMiddleware")(db);
+    const ipMiddleware = require("../middlewares/ipMiddleware");
 
     router.get("/:activationcode", ipMiddleware, (req, res) => {
         const activationCode = req.params.activationcode;
@@ -74,8 +74,6 @@ module.exports = (db) => {
         if (!product_id) {
             return res.status(400).send('Product ID is required.');
         }
-
-        console.log(product_id);
 
         db.query("SELECT * FROM products WHERE uuid = ?", [product_id], (err, results) => {
             if (err) {
