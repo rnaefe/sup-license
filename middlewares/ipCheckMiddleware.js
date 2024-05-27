@@ -1,11 +1,7 @@
 const ipCheckMiddleware = (db) => (req, res, next) => {
   const logger = require("../logger/log")
 
-  var clientIp = req.ip || req.connection.remoteAddress;
-
-  if (clientIp == "::1") {
-    clientIp = req.headers["ip"];
-  }
+  var clientIp = req.clientIp;
 
   const { uuid } = req.params;
 

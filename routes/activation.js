@@ -4,11 +4,10 @@ const router = express.Router();
 module.exports = (db) => {
     const generateActivationCode = require("../util/utils").generateActivationCode;
     const apiKeyCheckMiddleware = require('../middlewares/apiKeyCheckMiddleware');
-    const ipMiddleware = require("../middlewares/ipMiddleware");
 
-    router.get("/:activationcode", ipMiddleware, (req, res) => {
+    router.get("/:activationcode", (req, res) => {
         const activationCode = req.params.activationcode;
-        var clientIp = req.headers["x-ip"] || req.ip;
+        const clientIp = req.clientIp;
 
         // Check if the activation code exists
         db.query("SELECT * FROM activation WHERE activation_code = ?", [activationCode], (err, results) => {
