@@ -11,7 +11,9 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dist": "node app.js"
+    "dist": "node app.js",
+    "build": "npm install"
+    
   },
   "repository": {
     "type": "git",
