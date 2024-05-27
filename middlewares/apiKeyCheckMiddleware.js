@@ -1,5 +1,6 @@
 const apiKeyCheckMiddleware = (db, product) => (req, res, next) => {
     const apiKey = req.headers['api-key'];
+    
     if (!apiKey) {
         return res.status(403).send('API key is required.');
     }

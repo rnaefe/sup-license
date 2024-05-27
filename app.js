@@ -1,15 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const requestIp = require('request-ip');
 
 const app = express();
 const PORT = 3000;
-
-const requestIp = require('request-ip');
-
-app.use(bodyParser.json());
-
-app.use(requestIp.mw())
 
 // Configure MySQL connection
 const db = mysql.createConnection({
@@ -34,17 +29,14 @@ const licenseRoutes = require('./routes/licenses')(db);
 const userRoutes = require('./routes/users')(db);
 const activationRoutes = require('./routes/activation')(db);
 
+// imported mw
+app.use(bodyParser.json());
+app.use(requestIp.mw())
+
 app.use('/products', productRoutes);
 app.use('/license', licenseRoutes);
 app.use('/users', userRoutes);
 app.use('/activation', activationRoutes);
-
-app.get("/", (req,res) => {
-    const ip = req.clientIp;
-    res.send(ip)
-
-})
-
 
 app.set('trust proxy', true)
 
