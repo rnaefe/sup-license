@@ -28,10 +28,12 @@ db.connect((err) => {
 const productRoutes = require('./routes/products')(db);
 const licenseRoutes = require('./routes/licenses')(db);
 const userRoutes = require('./routes/users')(db);
+const activationRoutes = require('./routes/activation')(db);
 
 app.use('/products', productRoutes);
 app.use('/license', licenseRoutes);
 app.use('/users', userRoutes);
+app.use('/activation', activationRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

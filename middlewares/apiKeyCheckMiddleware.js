@@ -14,7 +14,8 @@ const apiKeyCheckMiddleware = (db, product) => (req, res, next) => {
         }
 
         if (product) {
-            const { uuid } = req.params;
+            const uuid = req.params.uuid || req.body.product_id;
+            console.log(uuid)
             db.query('SELECT api_key FROM products WHERE uuid = ?', [uuid], (err, results) => {
                 if (err) {
                     return res.status(500).send('Database error.');
