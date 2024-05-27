@@ -13,7 +13,6 @@
   "scripts": {
     "dist": "node app.js",
     "build": "npm install"
-    
   },
   "repository": {
     "type": "git",
