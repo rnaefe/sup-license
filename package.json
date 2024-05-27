@@ -11,7 +11,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dist": "node app.js"
   },
   "repository": {
     "type": "git",
