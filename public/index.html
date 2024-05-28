@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sup License Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sup License Management System</h1>
+
+        <!-- Product Management Section -->
+        <div class="form-section">
+            <h2>Manage Products</h2>
+            <label for="apikey">Api Key (Mandetory):</label>
+            <input type="text" id="apikey" name="apikey" required>
+            <button type="submit" id="apikeyregister">Register Apikey</button>
+            <form id="create-product-form">
+                <h3>Create Product</h3>
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" required>
+
+                <label for="allowedIps">Allowed IPs (comma-separated):</label>
+                <input type="text" id="allowedIps" name="allowedIps" required>
+
+                <label for="blacklistedIps">Blacklisted IPs (comma-separated):</label>
+                <input type="text" id="blacklistedIps" name="blacklistedIps">
+
+                <button type="submit">Create Product</button>
+            </form>
+            <div id="create-product-message"></div>
+
+            <h3>Product List</h3>
+            <button id="load-products">Load Products</button>
+            <div id="product-list"></div>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="form-section">
+            <h2>Manage Users</h2>
+            <form id="create-user-form">
+                <h3>Create User</h3>
+                <label for="userName">User Name:</label>
+                <input type="text" id="userName" name="userName" required>
+
+                <label for="userEmail">User Email:</label>
+                <input type="email" id="userEmail" name="userEmail" required>
+
+                <label for="userPassword">User Password:</label>
+                <input type="password" id="userPassword" name="userPassword" required>
+
+                <button type="submit">Create User</button>
+            </form>
+            <div id="create-user-message"></div>
+
+            <h3>User List</h3>
+            <button id="load-users">Load Users</button>
+            <div id="user-list"></div>
+        </div>
+
+        <!-- Activation Code Management Section -->
+        <div class="form-section">
+            <h2>Manage Activation Codes</h2>
+            <form id="create-activation-form">
+                <h3>Create Activation Code</h3>
+                <label for="productId">Product ID:</label>
+                <input type="text" id="productId" name="productId" required>
+
+                <button type="submit">Create Activation Code</button>
+            </form>
+            <div id="create-activation-message"></div>
+
+            <h3>Activation Code List</h3>
+            <button id="load-activation-codes">Load Activation Codes</button>
+            <div id="activation-code-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

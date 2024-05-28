@@ -48,6 +48,22 @@ module.exports = (db) => {
         });
     });
 
+    router.get('/getall', apiKeyCheckMiddleware(db, false), (req, res) => {
+        const apikey = req.headers["api-key"]
+        db.query('SELECT * FROM products WHERE api_key = ?', [apikey], (err, results) => {
+            if (err) {
+                return res.status(500).send('Database error.');
+            }
+
+            if (results.length === 0) {
+                return res.status(404).send('Product not found.');
+            }
+
+            const product = results;
+            res.send(product);
+        });
+    });
+
     // Delete a product
     router.delete('/delete/:uuid', apiKeyCheckMiddleware(db, true), (req, res) => {
         const { uuid } = req.params;

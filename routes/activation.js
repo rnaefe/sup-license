@@ -5,7 +5,7 @@ module.exports = (db) => {
     const generateActivationCode = require("../util/utils").generateActivationCode;
     const apiKeyCheckMiddleware = require('../middlewares/apiKeyCheckMiddleware');
 
-    router.get("/:activationcode", (req, res) => {
+    router.get("/reedem/:activationcode", (req, res) => {
         const activationCode = req.params.activationcode;
         const clientIp = req.clientIp;
 
@@ -93,6 +93,17 @@ module.exports = (db) => {
 
                 return res.send({ message: 'Activation code created successfully.', activation_code: activationCode });
             });
+        });
+    });
+
+    router.get("/getall", (req, res) => {
+        db.query("SELECT * FROM activation", [], (err, results) => {
+            if (err) {
+                return res.status(500).send('Database error.');
+            }
+
+            res.send(results)
+
         });
     });
 

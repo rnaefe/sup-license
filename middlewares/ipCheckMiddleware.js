@@ -35,5 +35,5 @@ const ipCheckMiddleware = (db) => (req, res, next) => {
   });
 };
   
-  module.exports = ipCheckMiddleware;
+module.exports = ipCheckMiddleware;
   

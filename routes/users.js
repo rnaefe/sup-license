@@ -21,7 +21,7 @@ module.exports = (db) => {
                 return res.status(500).send('Database error.');
             }
 
-            res.send({ message: 'User registered successfully.', api_key: apiKey });
+            res.send({ message: 'User registered successfully. Api key: ' + apiKey, api_key: apiKey });
         });
     });
 
@@ -51,6 +51,20 @@ module.exports = (db) => {
             }
 
             res.send({ message: 'Login successful.', api_key: user.api_key });
+        });
+    });
+
+    router.get('/getall', (req, res) => {
+        db.query('SELECT * FROM users', [], async (err, results) => {
+            if (err) {
+                return res.status(500).send('Database error.');
+            }
+
+            if (results.length === 0) {
+                return res.status(404).send('User not found.');
+            }
+
+            res.send(results);
         });
     });
 
