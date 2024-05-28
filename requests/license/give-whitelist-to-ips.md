@@ -1,0 +1,2 @@
+# Give Whitelist to ips
+
