@@ -16,4 +16,4 @@ We are freelancer developers like you and we want to protect our softwares&#x20;
 You dont need a specific language to use Sup License all you need to have a send a http request and reading the value if you can you are worth to Sup.
 
 
-* [⁉️ Boring stuff api and etc.?](requests.md)
+[⁉️ Boring stuff api and etc.?](requests.md)
