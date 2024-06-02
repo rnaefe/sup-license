@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "build": "echo 'Running build script...'",
-    "postinstall": "npm install"
+    "dev": "nodemon app.js",
+    "build": "npm install",
+    "dist": "node app.js"
   },
   "repository": {
     "type": "git",
